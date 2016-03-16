@@ -1,0 +1,18 @@
+<%=link_to "返回",:root,:class=>"btn btn-default"%>
+<table class="table">
+	<tr>
+		<td>站點</td>
+		<td>修改時間</td>
+		<td>動作</td>				
+	</tr>
+	<%@stations.each do |s|%>
+		<tr>
+			<td><%=s.name%></td>
+			<td><%=s.updated_at%></td>
+			<td>
+			<%=link_to "View",station_path(s)%>
+			<%=link_to "Del",station_path(s),:method=>:delete%>
+			</td>				
+		</tr>	
+	<%end%>
+</table>
