@@ -9,7 +9,8 @@ class StationsController < ApplicationController
 	end
 
 	def show
-		
+		@station = Station.find(params[:id])
+		@nurses = @station.nurses
 	end
 
 	def new
@@ -26,11 +27,13 @@ class StationsController < ApplicationController
 	end
 
 	def edit
-		
+
 	end
 
 	def update
-		
+		@station = Station.find(params[:id])
+		@station.update(station_params)
+		redirect_to station_path(params[:id])
 	end
 
 	def destroy
