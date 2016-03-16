@@ -25,6 +25,7 @@
 			<%end%>
 
 				<td><%=link_to s.name,new_nurse_path({:c=>(params[:c]+[s.id])})%></td>
+				<%err%>
 			</tr>
 		<%end%>
 	</table>

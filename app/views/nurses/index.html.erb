@@ -1,0 +1,18 @@
+<%=link_to "返回",:root,:class=>"btn btn-default"%>
+<table class="table">
+	<tr>
+		<td>員編</td>
+		<td>修改時間</td>
+		<td>動作</td>				
+	</tr>
+	<%@nurses.each do |n|%>
+		<tr>
+			<td><%=n.number%></td>
+			<td><%=n.updated_at%></td>
+			<td>
+			<%=link_to "View",nurse_path(n)%>
+			<%=link_to "Del",nurse_path(n),:method=>:delete%>
+			</td>				
+		</tr>	
+	<%end%>
+</table>
