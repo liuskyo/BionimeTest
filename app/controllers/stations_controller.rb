@@ -46,7 +46,7 @@ class StationsController < ApplicationController
 	private
 
 	def station_params
-		params.require(:station).permit(:name,:number,:nurse_id)
+		params.require(:station).permit(:name,:nurse_id)
 	end
 
 end
