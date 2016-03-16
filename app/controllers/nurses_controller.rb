@@ -1,11 +1,20 @@
 class NursesController < ApplicationController
 	def index
-		@nurses = Nurses.all
+		@nurses = Nurse.all
 	end
 
 	def show
 		@nurse = Nurse.find(params[:id])
-		@stations = @nurse.stations
+		@stations_add = @nurse.stations
+		if @stations_add.size>0
+			@stations = Station.where("id NOT IN (?)", @stations_add.ids)
+		else
+			@stations = Station.all
+		end
+		if params[:c]
+			@stations_add = Station.find(params[:c])
+			@stations = Station.where("id NOT IN (?)", params[:c])
+	  end		
 	end
 
 	def new
@@ -38,6 +47,12 @@ class NursesController < ApplicationController
 	def update
 		@nurse = Nurse.find(params[:id])
 		@nurse.update(nurse_params)
+		if(params[:s])
+			@nurse.station_nurseships.delete_all
+			params[:s].each do |s|
+				@nurse.station_nurseships.create(:station_id=>s)
+			end
+		end	
 		redirect_to nurse_path(params[:id])
 	end
 
