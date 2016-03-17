@@ -22,18 +22,24 @@ class NursesController < ApplicationController
 		@stations = Station.all
 		if params[:c]
 			@stations_add = Station.find(params[:c])
+			session[:station_id]=@stations_add
+
 			@stations = Station.where("id NOT IN (?)", params[:c])
+	  end
+	  respond_to do |format|
+	  	format.html
+	  	format.js
 	  end
 	end
 
 	def create
 		@nurse = Nurse.new(nurse_params)
 		if @nurse.save
-		if(params[:s])
-			params[:s].each do |s|
-				@nurse.station_nurseships.create(:station_id=>s)
-			end
-		end			
+			if(session[:station_id])
+				session[:station_id].each do |s|		
+		  		@nurse.station_nurseships.create(:station_id=>s["id"])
+		  	end
+		  end	
 			redirect_to nurse_path(@nurse)
 		else
 			render new_nurse_path

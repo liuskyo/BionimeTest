@@ -1,0 +1,25 @@
+<table class="table">
+		<tr>
+			<td>點擊加入</td>		
+		</tr>
+		<%@stations.each do |s|%>
+			<tr >
+				<%if params[:c]==nil%>
+				<%params[:c]=[]%>
+				<%end%>
+				<td><%=link_to s.name,new_nurse_path({:c=>(params[:c]+[s.id])}),:remote=>true%></td>
+			</tr>
+		<%end%>
+	</table>
+		<table class="table">
+		<tr>
+			<td>點擊移除</td>			
+		</tr>
+		<%if @stations_add%>
+			<%@stations_add.each do |s|%>
+				<tr>
+					<td ><%=link_to s.name,new_nurse_path({:c=>(params[:c]-["#{s.id}"])}),:remote=>true%></td>
+				</tr>
+			<%end%>
+		<%end%>
+	</table>

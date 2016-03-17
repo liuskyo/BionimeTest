@@ -1,7 +1,6 @@
 
 
-<%= form_for @nurse, :url => nurses_path({:s=>@stations_add}) do |f| %>
-
+<%= form_for @nurse, :url => nurses_path do |f| %>
   <%=link_to "返回",:back,:class=>"btn btn-default"%>
 	<%= f.submit "新增",:class=>"btn btn-primary"%>
   
@@ -14,31 +13,7 @@
 		<%=f.text_field :name%>
 	</div>
 	<h6>站點分配</h6>
-	<table class="table">
-		<tr>
-			<td>點擊加入</td>		
-		</tr>
-		<%@stations.each do |s|%>
-			<tr>
-			<%if params[:c]==nil%>
-			<%params[:c]=[]%>
-			<%end%>
-
-				<td><%=link_to s.name,new_nurse_path({:c=>(params[:c]+[s.id])})%></td>
-				<%err%>
-			</tr>
-		<%end%>
-	</table>
-		<table class="table">
-		<tr>
-			<td>點擊移除</td>			
-		</tr>
-		<%if @stations_add%>
-			<%@stations_add.each do |s|%>
-				<tr>
-					<td><%=link_to s.name,new_nurse_path({:c=>(params[:c]-["#{s.id}"])})%></td>
-				</tr>
-			<%end%>
-		<%end%>
-	</table>
+	<div id="table">
+		<%= render "table"%>
+	</div>
 <%end%>
