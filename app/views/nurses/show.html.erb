@@ -12,30 +12,36 @@
 		<%=f.text_field :name%>
 	</div>
 	<h6>站點分配</h6>
-	<table class="table">
-		<tr>
-			<td>點擊加入</td>		
-		</tr>
-		<%@stations.each do |s|%>
-			<tr>
-			<%if params[:c]==nil%>
-			<%params[:c]=@nurse.stations.ids%>
-			<%end%>
-
-				<td><%=link_to s.name,nurse_path({:c=>(params[:c]+[s.id]),:id=>@nurse.id})%></td>
-			</tr>
-		<%end%>
-	</table>
-		<table class="table">
-		<tr>
-			<td>點擊移除</td>			
-		</tr>
-		<%if @stations_add%>
-			<%@stations_add.each do |s|%>
+	<div class="row">
+		<div class="col-md-6">
+			<table class="table">
 				<tr>
-					<td><%=link_to s.name,nurse_path({:c=>(params[:c]-["#{s.id}"]),:id=>@nurse.id})%></td>
+					<td>點擊加入</td>		
 				</tr>
-			<%end%>
-		<%end%>
-	</table>
+				<%@stations.each do |s|%>
+					<tr>
+					<%if params[:c]==nil%>
+					<%params[:c]=@nurse.stations.ids%>
+					<%end%>
+
+						<td><%=link_to s.name,nurse_path({:c=>(params[:c]+[s.id]),:id=>@nurse.id})%></td>
+					</tr>
+				<%end%>
+			</table>
+		</div>
+		<div class="col-md-6">
+			<table class="table">
+				<tr>
+					<td>點擊移除</td>			
+				</tr>
+				<%if @stations_add%>
+					<%@stations_add.each do |s|%>
+						<tr>
+							<td><%=link_to s.name,nurse_path({:c=>(params[:c]-["#{s.id}"]),:id=>@nurse.id})%></td>
+						</tr>
+					<%end%>
+				<%end%>
+			</table>
+	 </div>
+	</div>
 <%end%>
